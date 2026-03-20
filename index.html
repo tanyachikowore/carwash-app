@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body {
+    font-family: Arial;
+    background: #0f172a;
+    color: white;
+    padding: 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 12px;
+    border: none;
+}
+
+button {
+    background: linear-gradient(to right, #22c55e, #16a34a);
+    color: white;
+}
+</style>
+</head>
+
+<body>
+
+<h2>🚗 Car Wash Booking</h2>
+
+<div class="card">
+
+<h3>📍 Location</h3>
+<button onclick="getLocation()">Use My Location</button>
+<p id="locationText"></p>
+
+<form action="/book" method="POST">
+
+<input type="text" name="name" placeholder="Full Name" required>
+<input type="text" name="phone" placeholder="Phone Number" required>
+<input type="text" id="address" name="address" placeholder="Location" required>
+
+<select name="day" required>
+<option value="">Select Day</option>
+<option>Monday</option>
+<option>Tuesday</option>
+<option>Wednesday</option>
+<option>Thursday</option>
+<option>Friday</option>
+<option>Saturday</option>
+<option>Sunday</option>
+</select>
+
+<input type="time" name="time" required>
+
+<select name="car_type" required>
+<option value="">Car Type</option>
+<option>Sedan</option>
+<option>SUV</option>
+<option>Truck</option>
+<option>Hatchback</option>
+</select>
+
+<select name="wash_type" required>
+<option value="">Wash Type</option>
+<option>Basic Wash</option>
+<option>Premium Wash</option>
+<option>Interior Cleaning</option>
+<option>Full Service</option>
+</select>
+
+<button type="submit">Book Now</button>
+</form>
+
+</div>
+
+<script>
+function getLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+            let lat = position.coords.latitude;
+            let lon = position.coords.longitude;
+
+            let location = "Lat: " + lat + ", Lon: " + lon;
+            document.getElementById("locationText").innerText = location;
+            document.getElementById("address").value = location;
+        });
+    }
+}
+</script>
+
+<br>
+<a href="/dashboard" style="color:white;">Dashboard</a>
+<a href="/logout" style="color:red;">Logout</a>
+
+</body>
+</html>

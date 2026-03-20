@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<body style="background:#0f172a; color:white; padding:20px;">
+
+<h2>📋 Dashboard</h2>
+
+{% set total = 0 %}
+
+{% for b in bookings %}
+{% set total = total + (b.price if b.price else 0) %}
+
+<div style="background:#1e293b; padding:15px; margin:10px; border-radius:15px;">
+    <b>{{b.name}}</b><br>
+    📅 {{b.day}} at {{b.time}}<br>
+    🚗 {{b.car_type}}<br>
+    🧼 {{b.wash_type}} (${{ b.price if b.price else 0 }})<br>
+    📍 {{b.address}}<br>
+    📞 {{b.phone}}<br>
+    👨‍🔧 {{b.worker}}<br>
+    📌 Status: {{b.status}}<br>
+    💳 Payment: {{b.payment_status}}
+
+    <form action="/assign/{{loop.index0}}" method="POST">
+        <input name="worker" placeholder="Assign worker">
+        <button>Assign</button>
+    </form>
+
+    <form action="/pay/{{loop.index0}}" method="POST">
+        <button>Mark as Paid</button>
+    </form>
+
+</div>
+
+{% endfor %}
+
+<h3>💰 Total Revenue: ${{ total }}</h3>
+
+<a href="/">⬅ Back</a>
+
+</body>
+</html>
